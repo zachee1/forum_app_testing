@@ -1,0 +1,4 @@
+ID,username,email,password
+"fd5c2b6b-df0a-4b1e-ae6c-2fbb1e53a701",user1,user1@example.com,password123
+"b14deecb-95f1-481a-a321-92193b1e00e7",user2,user2@example.com,securepassword
+"724f334f-bf18-4926-a28a-58b6766e4f42",user3,user3@example.com,strongpassword

@@ -1,0 +1,178 @@
+# Thread 
+
+###
+#
+# Get Single Thread buy UUID 
+#
+GET http://localhost:4004/odata/v4/forum/Thread
+
+###
+#
+# Get Single Thread buy UUID 
+#
+GET http://localhost:4004/odata/v4/forum/Thread(ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80)?$expand=author
+
+###
+#
+# Get Single Thread by Title 
+#
+GET http://localhost:4004/odata/v4/forum/Thread?$search="First Thread"
+
+
+###
+#
+# Get Single thread by part of the title 
+#
+GET http://localhost:4004/odata/v4/forum/Thread?$search=First
+
+
+
+
+###
+#
+# Get Answers of specifi Thread  
+#
+GET http://localhost:4004/odata/v4/forum/Thread(ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80)?$expand=answers
+
+
+###
+#
+# Post Single Thread  
+#
+POST http://localhost:4004/odata/v4/forum/Thread
+Content-Type: application/json;IEEE754Compatible=true
+
+{
+  "Title": "New Thread Title",
+  "Content": "Content of the New Thread"
+}
+
+
+###
+#
+# Get Threads sorted by Upvotes    
+#
+GET http://localhost:4004/odata/v4/forum/Thread?&$orderby=Upvotes desc
+
+###
+#
+# Delete a thread if no answer  
+#
+POST  http://localhost:4004/odata/v4/forum/deleteThread
+Content-Type: application/json
+
+{
+    "ID":"ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80"
+}
+
+
+###
+#
+# Upvotes   
+#
+POST http://localhost:4004/odata/v4/forum/upvote
+Content-Type: application/json
+
+{
+    "ID":"ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80"
+}
+
+###
+#
+# DownVotes   
+#
+POST http://localhost:4004/odata/v4/forum/downVote
+Content-Type: application/json
+
+{
+    "ID":"ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80"
+}
+
+
+
+
+
+
+
+# Answer 
+
+###
+# 
+# Post answer 
+#
+#
+POST http://localhost:4004/odata/v4/forum/Answer
+Content-Type: application/json;IEEE754Compatible=true
+
+{
+  "ID": "e99362a4-4fcf-44df-b7ab-53074818b5c2",
+  "author_ID": "b14deecb-95f1-481a-a321-92193b1e00e7",
+  "thread_ID": "ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80",
+  "Content": "First answer to second thread of the 2nd Author.",
+}
+
+
+###
+#
+# UPDATE answer Entity 
+#
+PATCH  http://localhost:4004/odata/v4/forum/Answer(e5a90d9d-517b-4f35-9ad2-c372f0349f40)
+Content-Type: application/json;IEEE754Compatible=true
+
+{
+  
+  "Content": "The content is update ... "
+}
+
+
+###
+#
+# UPDATE answer Entity optin 2 
+#
+POST  http://localhost:4004/odata/v4/forum/isUpdated
+Content-Type: application/json;IEEE754Compatible=true
+
+{
+  "ID":"e5a90d9d-517b-4f35-9ad2-c372f0349f40",
+  "Content": "The content is update ... "
+}
+
+
+
+
+###
+#
+#	Answers are always sorted by CreatedAt with oldest answer first 
+#
+GET http://localhost:4004/odata/v4/forum/Answer?&$orderby=CreatedAt
+
+
+###
+#
+# Get Get all Answer of specific thread  
+#
+GET http://localhost:4004/odata/v4/forum/Thread?$expand=answers
+
+###
+#
+# Delete a thread if no answer  
+#
+POST  http://localhost:4004/odata/v4/forum/isDeleted
+Content-Type: application/json
+
+{
+     "ID": "e5a90d9d-517b-4f35-9ad2-c372f0349f40"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

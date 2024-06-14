@@ -1,0 +1,5 @@
+ID,author_ID,Title,Content,Upvotes,DownVotes,CreatedAt,UpdatedAt
+"ebf9ae9c-0439-4eaa-85b6-4b9d8c4b0d80","fd5c2b6b-df0a-4b1e-ae6c-2fbb1e53a701",First Thread,Content of the 1st Author.,10,2,2024-02-08T10:00:00,2024-02-08T10:30:00
+"68830dd8-c953-4c4e-90db-7edf0850e73e","b14deecb-95f1-481a-a321-92193b1e00e7",Second Thread,Content of the 2nd Author.,5,1,2024-02-08T11:00:00,2024-02-08T11:30:00
+"b2e9c94d-960a-4f6b-bc6f-69e62cbff04f","724f334f-bf18-4926-a28a-58b6766e4f42",Third Thread,Content of the 3rd Author.,8,3,2024-02-08T12:00:00,2024-02-08T12:30:00
+"9f7140d1-63fb-4b4a-b07b-2b69f6a2d165","a34dfea7-78f9-4f4a-a58b-6c77c915b5b8",Fourth Thread,Content of the 4th Author.,7,0,2024-02-09T09:00:00,2024-02-09T09:30:00
