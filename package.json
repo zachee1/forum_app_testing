@@ -12,7 +12,8 @@
     "axios": "^1.7.2",
     "express": "^4",
     "passport": "^0",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
@@ -21,7 +22,7 @@
   },
   "scripts": {
     "start": "cds watch",
-    "test": "npx jest tests/forum-service.test.js --coverage"
+    "test": "npx jest tests/custom-handlers.test.js --coverage --detectOpenHandles"
   },
   "jest": {
     "testTimeout": 20000,
@@ -52,6 +53,14 @@
               "fullName": "USER",
               "email": "USER@example.com"
             }
+          }
+        }
+      },
+      "[development]": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "database": ":memory:"
           }
         }
       }
