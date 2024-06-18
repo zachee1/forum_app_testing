@@ -1,6 +1,6 @@
-
 const cds = require('@sap/cds');
 
+// Mocking `cds.transaction` and `cds.ql.UPDATE`
 jest.mock('@sap/cds', () => {
   const mockUpdate = jest.fn().mockReturnValue({
     set: jest.fn().mockReturnThis(),
@@ -8,30 +8,30 @@ jest.mock('@sap/cds', () => {
   });
 
   return {
-    transaction: jest.fn(),
-    entities: jest.fn(),
+    transaction: jest.fn().mockReturnValue({
+      run: jest.fn().mockResolvedValue([{ affectedRows: 1 }])
+    }),
+    entities: jest.fn().mockReturnValue({
+      "ForumApplication.Thread": { name: 'Thread' }
+    }),
     ql: {
       UPDATE: mockUpdate
     }
   };
 });
 
+
 const forumService = require('../srv/forum-service');
 
+// Mock `cds.ql.UPDATE`
+const { ql } = cds;
+const mockUpdate = ql.UPDATE;
+
 describe('Forum Application Service', () => {
-  let srv, mockReq, mockTx, mockEntities, mockUpdate;
+  let srv, mockReq;
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    mockUpdate = cds.ql.UPDATE;
-
-    mockEntities = {
-      Answer: { name: 'Answer' },
-      Thread: { name: 'Thread' },
-    };
-
-    cds.entities.mockReturnValue(mockEntities);
 
     srv = {
       on: jest.fn(),
@@ -40,12 +40,6 @@ describe('Forum Application Service', () => {
     mockReq = {
       data: { ID: 'test-id' },
     };
-
-    mockTx = {
-      run: jest.fn().mockResolvedValue([{ affectedRows: 1 }]),
-    };
-
-    cds.transaction.mockReturnValue(mockTx);
 
     forumService(srv);
   });
@@ -57,13 +51,10 @@ describe('Forum Application Service', () => {
       const result = await upvoteHandler(mockReq);
 
       expect(cds.transaction).toHaveBeenCalledWith(mockReq);
-
-      expect(mockUpdate).toHaveBeenCalledWith(mockEntities.Thread);
+      expect(mockUpdate).toHaveBeenCalledWith("ForumApplication.Thread");
       expect(mockUpdate().set).toHaveBeenCalledWith({ Upvotes: { "+=": 1 } });
       expect(mockUpdate().where).toHaveBeenCalledWith({ ID: 'test-id' });
-
-      expect(mockTx.run).toHaveBeenCalled();
-
+      expect(cds.transaction().run).toHaveBeenCalled();
       expect(result).toEqual({
         code: 200,
         message: "Thread upvoted successfully",
@@ -72,3 +63,4 @@ describe('Forum Application Service', () => {
     });
   });
 });
+
