@@ -2,7 +2,7 @@
 const cds = require("@sap/cds");
 
 const upvoteHandler = async (req) => {
-  const { ID } = req.data;
+  const  ID  = req.data.ID
   await UPDATE("ForumApplication.Thread")
       .set({ Upvotes: { "+=": 1 } })
       .where({ ID })
@@ -12,7 +12,6 @@ const upvoteHandler = async (req) => {
     message: "Thread upvoted successfully",
     status: "SUCCESS",
   };
-
 };
 
 const downVoteHandler = async (req) => {
